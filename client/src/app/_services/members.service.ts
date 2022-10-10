@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
@@ -41,7 +41,7 @@ export class MembersService {
     return this.userParams;
   }
 
-  getMembers(userParams: UserParams) {
+  getMembers(userParams: UserParams): Observable<PaginatedResult<Member[]>> {
     var response = this.memberCache.get(Object.values(userParams).join('-'));
     if(response) {
       return of(response);
